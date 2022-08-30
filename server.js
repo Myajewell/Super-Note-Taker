@@ -1,10 +1,15 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const notesDB = require('/.db/db.json');
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+// requiring routes
+const apiRoute = require("./Develop/route/routeAPI");
+const apiRoute = require("./Develop/route/routeHTML");
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
@@ -16,7 +21,7 @@ app.use(express.static('public'));
 // GET Route for homepage
 app.get('/index', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
-);
+); 
 
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
