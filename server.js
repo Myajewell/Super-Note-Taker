@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+const notesDB = require('/.db/db.json');
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,13 +14,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // GET Route for homepage
-app.get('/', (req, res) =>
+app.get('/index', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
+
+app.get('/api/notes', (req, res) =>
+res.json(notesDB));
+
+app.post('/api/notes', (req, res) => {
+const {body} = req;
+notesDB.push(body);
+console.log(body);
+res.json(notesDB)});
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
