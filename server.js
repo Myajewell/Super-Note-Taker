@@ -9,7 +9,7 @@ const app = express();
 
 // requiring routes
 const apiRoute = require("./Develop/route/routeAPI");
-const apiRoute = require("./Develop/route/routeHTML");
+const htmlRoute = require("./Develop/route/routeHTML");
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
@@ -17,6 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(express.static('public'));
+
+app.use('/api', apiRoute);
+app.use('/', htmlRoute);
 
 // GET Route for homepage
 app.get('/index', (req, res) =>
